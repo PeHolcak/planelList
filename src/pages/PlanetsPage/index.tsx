@@ -2,21 +2,16 @@ import React, { useState, useEffect } from 'react'
 import type { NextPage } from 'next'
 import Layout from 'src/components/Layout'
 import { Urls } from 'src/static'
-import PlanetCard from 'src/components/PlanetCard/index'
-import ILoadedPlanets from 'src/models/planet'
-import {
-  PlanetListWrapper,
-  PagginationRow,
-  PagginationButton,
-  PagginationIndexButton,
-} from './styled'
+import ILoadedPlanet from 'src/models/planet'
+import { PlanetPageWrapper, PagginationRow, PagginationButton } from './styled'
+import PlanetList from 'src/components/PlanetList'
 
 // V dtoOut endpointu api/planets se vrací pouze počet všech záznámů, z tohoto údaje nelze bezpečně vypočítat počet všech stránek
 const PAGES_COUNT = 6
 
-const PlanetList: NextPage = () => {
+const PlanetPage: NextPage = () => {
   const [pagginationIndex, setPagginationIndex] = useState(1)
-  const [loadedPlanets, setLoadedPlanets] = useState<Array<ILoadedPlanets>>([])
+  const [loadedPlanets, setLoadedPlanets] = useState<Array<ILoadedPlanet>>([])
   const [loadingState, setLoadingState] = useState<
     'loading' | 'success' | 'error'
   >('loading')
@@ -27,17 +22,6 @@ const PlanetList: NextPage = () => {
       pagginationIndex.toString()
     )
     setLoadingState('loading')
-    // fetch(url)
-    //   .then((res) => res.json())
-    //   .then((data) => {
-    //     const resultDtoOut = (data || {}).results
-    //     setLoadedPlanets(Array.isArray(resultDtoOut) ? resultDtoOut : [])
-    //     setLoadingState('success')
-    //   })
-    //   .catch((errdata) => {
-    //     setLoadedPlanets(errdata)
-    //     setLoadingState('error')
-    //   })
     const fetchPlanetData = async () => {
       try {
         let resultDtoOut = await fetch(url)
@@ -65,9 +49,7 @@ const PlanetList: NextPage = () => {
       case 'loading':
         return <p>loading...</p>
       case 'success':
-        return loadedPlanets.map((planet, index) => (
-          <PlanetCard planetData={planet} key={index} />
-        ))
+        return <PlanetList loadedPlanets={loadedPlanets} />
       default:
         return <p>error</p>
     }
@@ -138,7 +120,7 @@ const PlanetList: NextPage = () => {
 
   return (
     <Layout>
-      <PlanetListWrapper>
+      <PlanetPageWrapper>
         <PagginationRow>
           <PagginationButton
             disabled={pagginationIndex <= 1}
@@ -155,9 +137,9 @@ const PlanetList: NextPage = () => {
           </PagginationButton>
         </PagginationRow>
         {_getContent()}
-      </PlanetListWrapper>
+      </PlanetPageWrapper>
     </Layout>
   )
 }
 
-export default PlanetList
+export default PlanetPage

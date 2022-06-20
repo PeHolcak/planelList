@@ -7,7 +7,7 @@ import {
   PlanetCardHeader,
 } from './styled'
 import SearchIcon from '@mui/icons-material/Search'
-import ILoadedPlanets from 'src/models/planet'
+import ILoadedPlanet from 'src/models/planet'
 import DeviceThermostatIcon from '@mui/icons-material/DeviceThermostat'
 import DateRangeIcon from '@mui/icons-material/DateRange'
 import StraightenIcon from '@mui/icons-material/Straighten'
@@ -75,7 +75,7 @@ const CARD_CONTENT_LABELS = {
 }
 
 interface PlanetCardProps {
-  planetData: ILoadedPlanets
+  planetData: ILoadedPlanet
 }
 
 const PlanetCard: React.FC<PlanetCardProps> = ({ planetData }) => {
@@ -97,7 +97,7 @@ const PlanetCard: React.FC<PlanetCardProps> = ({ planetData }) => {
       ) => {
         const Icon = currentCardItem[1].icon
         const description = currentCardItem[0]
-        let value = planetData[description as keyof ILoadedPlanets]
+        let value = planetData[description as keyof ILoadedPlanet]
 
         if (!Array.isArray(value) && currentCardItem[1].valueType === 'date') {
           value = formatDateTime(value)

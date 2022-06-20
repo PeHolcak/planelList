@@ -1,4 +1,4 @@
-export default interface ILoadedPlanets {
+export default interface ILoadedPlanet {
   name: string
   rotation_period: string
   orbital_period: string

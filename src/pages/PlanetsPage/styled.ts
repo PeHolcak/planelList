@@ -1,10 +1,7 @@
 import styled from 'styled-components'
 import Button from 'src/components/Button/styled'
 
-export const PlanetListWrapper = styled.section`
-  display: flex;
-  justify-content: center;
-  flex-wrap: wrap;
+export const PlanetPageWrapper = styled.section`
   width: 80vw;
 `
 
