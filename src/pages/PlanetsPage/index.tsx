@@ -3,7 +3,13 @@ import type { NextPage } from 'next'
 import Layout from 'src/components/Layout'
 import { Urls } from 'src/static'
 import ILoadedPlanet from 'src/models/planet'
-import { PlanetPageWrapper, PagginationRow, PagginationButton } from './styled'
+import {
+  PlanetPageWrapper,
+  PagginationRow,
+  PagginationButton,
+  PagginationWrapper,
+  ThreeDots,
+} from './styled'
 import PlanetList from 'src/components/PlanetList'
 
 // V dtoOut endpointu api/planets se vrací pouze počet všech záznámů, z tohoto údaje nelze bezpečně vypočítat počet všech stránek
@@ -83,7 +89,7 @@ const PlanetPage: NextPage = () => {
 
   const getPaginationIndexesLink = () => {
     const rightPagginationCount = PAGES_COUNT - pagginationIndex
-    const space = <span key='space'>...</span>
+    const space = <ThreeDots key='space'>...</ThreeDots>
     let rightPaggination = []
     let leftPaggination = []
 
@@ -110,11 +116,11 @@ const PlanetPage: NextPage = () => {
     }
 
     return (
-      <span>
+      <PagginationWrapper>
         {leftPaggination}
         <PagginationButton disabled>{pagginationIndex}</PagginationButton>
         {rightPaggination}
-      </span>
+      </PagginationWrapper>
     )
   }
 

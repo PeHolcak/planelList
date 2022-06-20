@@ -9,6 +9,14 @@ export const PagginationRow = styled.div`
   width: 100%;
   display: flex;
   justify-content: space-between;
+
+  @media only screen and (max-width: 480px) {
+    flex-direction: column;
+
+    > * {
+      padding: 10px 0px;
+    }
+  }
 `
 
 export const PagginationButton = styled(Button)`
@@ -27,4 +35,18 @@ export const PagginationButton = styled(Button)`
 
 export const PagginationIndexButton = styled(Button)`
   padding: 10px 5px;
+`
+export const PagginationWrapper = styled.div`
+  display: flex;
+
+  @media only screen and (max-width: 480px) {
+    justify-content: center;
+  }
+`
+
+export const ThreeDots = styled.span`
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  padding: 0px 5px;
 `

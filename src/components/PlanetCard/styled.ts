@@ -2,7 +2,7 @@ import styled from 'styled-components'
 import Button from 'src/components/Button/styled'
 
 export const PlanetCardWrap = styled.article`
-  width: 20vw;
+  width: 10vw;
   background: white;
   display: flex;
   flex-direction: column;
@@ -15,6 +15,26 @@ export const PlanetCardWrap = styled.article`
     return `-webkit-box-shadow: 0px 0px 17px 4px ${boxShadow};
     box-shadow: 0px 0px 17px 4px ${boxShadow};`
   }}
+
+  @media only screen and (max-width: 2160px) {
+    width: 15vw;
+  }
+
+  @media only screen and (max-width: 1440px) {
+    width: 20vw;
+  }
+
+  @media only screen and (max-width: 1080px) {
+    width: 40vw;
+  }
+
+  @media only screen and (max-width: 720px) {
+    width: 50vw;
+  }
+
+  @media only screen and (max-width: 480px) {
+    width: 70vw;
+  }
 `
 
 export const DetailButton = styled(Button)`
