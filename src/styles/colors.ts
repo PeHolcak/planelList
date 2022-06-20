@@ -7,6 +7,7 @@ const colors = {
 
   // accent colors
   alpha: '#0035ff',
+  boxShadow: 'rgba(0, 0, 0, 0.76)',
 }
 
 export type AppColorsType = typeof colors

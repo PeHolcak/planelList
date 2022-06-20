@@ -13,6 +13,7 @@ const Header: React.VFC = () => {
   const links = [
     { href: routes.index, text: 'Home' },
     { href: routes.about, text: 'About' },
+    { href: routes.planetList, text: 'Planet List' },
   ]
 
   return (
