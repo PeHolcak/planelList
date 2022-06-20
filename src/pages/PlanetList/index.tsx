@@ -27,17 +27,37 @@ const PlanetList: NextPage = () => {
       pagginationIndex.toString()
     )
     setLoadingState('loading')
-    fetch(url)
-      .then((res) => res.json())
-      .then((data) => {
-        const resultDtoOut = (data || {}).results
-        setLoadedPlanets(Array.isArray(resultDtoOut) ? resultDtoOut : [])
-        setLoadingState('success')
-      })
-      .catch((errdata) => {
-        setLoadedPlanets(errdata)
+    // fetch(url)
+    //   .then((res) => res.json())
+    //   .then((data) => {
+    //     const resultDtoOut = (data || {}).results
+    //     setLoadedPlanets(Array.isArray(resultDtoOut) ? resultDtoOut : [])
+    //     setLoadingState('success')
+    //   })
+    //   .catch((errdata) => {
+    //     setLoadedPlanets(errdata)
+    //     setLoadingState('error')
+    //   })
+    const fetchPlanetData = async () => {
+      try {
+        let resultDtoOut = await fetch(url)
+        if (resultDtoOut.status === 200) {
+          const jsonResultDtoOut = await resultDtoOut.json()
+          const results = (jsonResultDtoOut || {}).results
+          setLoadedPlanets(Array.isArray(results) ? results : [])
+          setLoadingState('success')
+        } else {
+          setLoadedPlanets([])
+          setLoadingState('error')
+        }
+      } catch (errdata) {
+        console.error(errdata)
+        setLoadedPlanets([])
         setLoadingState('error')
-      })
+      }
+    }
+
+    fetchPlanetData()
   }, [pagginationIndex])
 
   const _getContent = () => {
