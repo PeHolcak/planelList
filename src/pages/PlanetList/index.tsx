@@ -4,7 +4,12 @@ import Layout from 'src/components/Layout'
 import { Urls } from 'src/static'
 import PlanetCard from 'src/components/PlanetCard/index'
 import ILoadedPlanets from 'src/models/planet'
-import { PlanetListWrapper, PagginationRow, PagginationButton } from './styled'
+import {
+  PlanetListWrapper,
+  PagginationRow,
+  PagginationButton,
+  PagginationIndexButton,
+} from './styled'
 
 // V dtoOut endpointu api/planets se vrací pouze počet všech záznámů, z tohoto údaje nelze bezpečně vypočítat počet všech stránek
 const PAGES_COUNT = 6
@@ -62,15 +67,70 @@ const PlanetList: NextPage = () => {
     if (curruntIndex <= PAGES_COUNT) _setPagginationIndex(++curruntIndex)
   }
 
+  const getPagginationButton = (index: number) => {
+    const _setPagginationIndex = () => setPagginationIndex(index)
+    return (
+      <PagginationButton
+        key={`paggination-item-${index}`}
+        onClick={_setPagginationIndex}
+      >
+        {index}
+      </PagginationButton>
+    )
+  }
+
+  const getPaginationIndexesLink = () => {
+    const rightPagginationCount = PAGES_COUNT - pagginationIndex
+    const space = <span key='space'>...</span>
+    let rightPaggination = []
+    let leftPaggination = []
+
+    if (rightPagginationCount === 1) {
+      rightPaggination.push(getPagginationButton(PAGES_COUNT))
+    } else if (rightPagginationCount === 2) {
+      rightPaggination.push(getPagginationButton(pagginationIndex + 1))
+      rightPaggination.push(getPagginationButton(PAGES_COUNT))
+    } else if (rightPagginationCount > 2) {
+      rightPaggination.push(getPagginationButton(pagginationIndex + 1))
+      rightPaggination.push(space)
+      rightPaggination.push(getPagginationButton(PAGES_COUNT))
+    }
+
+    if (pagginationIndex === 2) {
+      leftPaggination.push(getPagginationButton(1))
+    } else if (pagginationIndex === 3) {
+      leftPaggination.push(getPagginationButton(1))
+      leftPaggination.push(getPagginationButton(2))
+    } else if (pagginationIndex > 2) {
+      leftPaggination.push(getPagginationButton(1))
+      leftPaggination.push(space)
+      leftPaggination.push(getPagginationButton(pagginationIndex - 1))
+    }
+
+    return (
+      <span>
+        {leftPaggination}
+        <PagginationButton disabled>{pagginationIndex}</PagginationButton>
+        {rightPaggination}
+      </span>
+    )
+  }
+
   return (
     <Layout>
       <PlanetListWrapper>
         <PagginationRow>
-          <PagginationButton onClick={decreesePagginationIndex}>
+          <PagginationButton
+            disabled={pagginationIndex <= 1}
+            onClick={decreesePagginationIndex}
+          >
             Previous page
           </PagginationButton>
-          <div>1, 2, 3</div>
-          <PagginationButton onClick={incresePagginationIndex}>
+          <div>{getPaginationIndexesLink()}</div>
+          <PagginationButton
+            disabled={pagginationIndex >= PAGES_COUNT}
+            onClick={incresePagginationIndex}
+          >
             Next page
           </PagginationButton>
         </PagginationRow>

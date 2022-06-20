@@ -1,4 +1,5 @@
 import styled from 'styled-components'
+import Button from 'src/components/Button/styled'
 
 export const PlanetCardWrap = styled.article`
   width: 20vw;
@@ -16,30 +17,19 @@ export const PlanetCardWrap = styled.article`
   }}
 `
 
-export const DetailButton = styled.button`
+export const DetailButton = styled(Button)`
   width: 40pt;
   height: 40pt;
   bottom: 0px;
   right: 0px;
-  cursor: pointer;
   display: flex;
   justify-content: flex-end;
   align-items: flex-end;
   clip-path: polygon(100% 0%, 0% 100%, 100% 100%);
-  transition-duration: 0.5s;
-  background: ${(props) => props.theme.colors.green};
-  color: white;
 
   > svg {
     width: 20pt;
     height: 20pt;
-  }
-
-  &:hover {
-    background: ${(props) => props.theme.colors.minor};
-  }
-  &:active {
-    background: ${(props) => props.theme.colors.secondary};
   }
 `
 export const PlanetCardContentWrap = styled.div`
